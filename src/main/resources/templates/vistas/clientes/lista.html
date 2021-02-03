@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/plantillas/principal :: head">
+</head>
+<body>
+	<th:block th:replace="/plantillas/menu :: navbar"></th:block>
+	<div class="container mt-5 w-50">
+		<h1>Lista de Clientes</h1>
+		<a class="btn btn-primary rounded-pill m-1"><strong>Crear Cliente</strong></a>
+		<table class="table table-bordered">
+			<thead>
+				<tr class="text-center">
+					<th scope="col">No. Cedula</th>
+					<th scope="col">Nombres</th>
+					<th scope="col">Telefono</th>
+					<th scope="col">Rol</th>
+					<th scope="col">Acciones</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="cliente:${clientes}">
+					<th scope="row" th:text="${cliente.cedula}"></th>
+					<td th:text="${cliente.nombre}"></td>
+					<td th:text="${cliente.telefono}"></td>
+					<td th:text="${cliente.rol}"></td>
+					<td >
+						<div class="row justify-content-center">
+							<a class="btn btn-warning rounded-pill col-4"><strong>Editar</strong></a>
+							<a class="btn btn-danger rounded-pill col-4 "><strong>Eliminar</strong></a>
+						</div>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<th:block th:replace="/plantillas/principal :: scripts"></th:block>
+</body>
+</html>
