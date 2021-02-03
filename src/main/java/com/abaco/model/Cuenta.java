@@ -1,122 +1,99 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.abaco.model;
-
-import org.hibernate.annotations.CreationTimestamp;
 
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
-import javax.persistence.*;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
-/**
- *
- * @author desarrolladorweb6
- */
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+import org.hibernate.annotations.CreationTimestamp;
+
 @Entity
 @Table(name = "cuentas")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Cuenta.findAll", query = "SELECT c FROM Cuenta c"),
-    @NamedQuery(name = "Cuenta.findByNumeroCuenta", query = "SELECT c FROM Cuenta c WHERE c.numeroCuenta = :numeroCuenta"),
-    @NamedQuery(name = "Cuenta.findBySaldo", query = "SELECT c FROM Cuenta c WHERE c.saldo = :saldo"),
-    @NamedQuery(name = "Cuenta.findByFecha", query = "SELECT c FROM Cuenta c WHERE c.fecha = :fecha"),
-    @NamedQuery(name = "Cuenta.findByEstado", query = "SELECT c FROM Cuenta c WHERE c.estado = :estado")})
 public class Cuenta implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-    @Id
-    @Basic(optional = false)
-    @Column(name = "numero_cuenta")
-    private String numeroCuenta;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
-    @Column(name = "saldo")
-    private Double saldo;
-    @Column(name = "fecha")
-    @Temporal(TemporalType.TIMESTAMP)
-    @CreationTimestamp
-    private Date fecha;
-    @Column(name = "estado")
-    private Boolean estado;
-    @ManyToMany(mappedBy = "cuentaList",cascade= CascadeType.ALL)
-    private List<Cliente> clienteList;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
-    public Cuenta() {
-    }
+	@Id
+	private String numeroCuenta;
 
-    public Cuenta(String numeroCuenta) {
-        this.numeroCuenta = numeroCuenta;
-    }
+	@Column(length = 45)
+	private Double saldo;
 
-    public String getNumeroCuenta() {
-        return numeroCuenta;
-    }
+	@CreationTimestamp
+	private Date fecha;
 
-    public void setNumeroCuenta(String numeroCuenta) {
-        this.numeroCuenta = numeroCuenta;
-    }
+	@Column(nullable = false)
+	private boolean estado;
 
-    public Double getSaldo() {
-        return saldo;
-    }
+	@ManyToOne(fetch = FetchType.LAZY)
+	private Cliente cliente;
 
-    public void setSaldo(Double saldo) {
-        this.saldo = saldo;
-    }
+	@OneToMany(mappedBy = "cuenta", cascade = CascadeType.ALL)
+	private List<PruebaCuenta> pruebaCuentas;
 
-    public Date getFecha() {
-        return fecha;
-    }
+	public String getNumeroCuenta() {
+		return numeroCuenta;
+	}
 
-    public void setFecha(Date fecha) {
-        this.fecha = fecha;
-    }
+	public void setNumeroCuenta(String numCuenta) {
+		this.numeroCuenta = numCuenta;
+	}
 
-    public Boolean getEstado() {
-        return estado;
-    }
+	public Double getSaldo() {
+		return saldo;
+	}
 
-    public void setEstado(Boolean estado) {
-        this.estado = estado;
-    }
+	public void setSaldo(Double saldo) {
+		this.saldo = saldo;
+	}
 
-    @XmlTransient
-    public List<Cliente> getClienteList() {
-        return clienteList;
-    }
+	public Date getFecha() {
+		return fecha;
+	}
 
-    public void setClienteList(List<Cliente> clienteList) {
-        this.clienteList = clienteList;
-    }
+	public void setFecha(Date fecha) {
+		this.fecha = fecha;
+	}
 
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (numeroCuenta != null ? numeroCuenta.hashCode() : 0);
-        return hash;
-    }
+	public boolean isEstado() {
+		return estado;
+	}
 
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Cuenta)) {
-            return false;
-        }
-        Cuenta other = (Cuenta) object;
-        if ((this.numeroCuenta == null && other.numeroCuenta != null) || (this.numeroCuenta != null && !this.numeroCuenta.equals(other.numeroCuenta))) {
-            return false;
-        }
-        return true;
-    }
+	public void setEstado(boolean estado) {
+		this.estado = estado;
+	}
 
-    @Override
-    public String toString() {
-        return "com.abaco.entity.Cuenta[ numeroCuenta=" + numeroCuenta + " ]";
-    }
-    
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
+	}
+
+	public List<PruebaCuenta> getPruebaCuentas() {
+		return pruebaCuentas;
+	}
+
+	public void setPruebaCuentas(List<PruebaCuenta> pruebaCuentas) {
+		this.pruebaCuentas = pruebaCuentas;
+	}
+
+	@Override
+	public String toString() {
+		return "Cuenta [numeroCuenta=" + numeroCuenta + ", saldo=" + saldo + ", fecha=" + fecha + ", estado=" + estado
+				+ ", cliente=" + cliente + "]";
+	}
+
 }

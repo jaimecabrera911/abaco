@@ -10,18 +10,17 @@ import com.abaco.repository.ClienteRepository;
 @Service
 public class ClienteServiceImp implements ClienteService {
 
-    @Autowired
-    ClienteRepository clienteRepository;
+	@Autowired
+	ClienteRepository clienteRepository;
 
-    @Override
-    public List<Cliente> listarTodo() {
-        return clienteRepository.findAll();
-    }
+	@Override
+	public List<Cliente> listarTodo() {
+		return clienteRepository.findAll();
+	}
 
-    @Override
-    public void guardar(Cliente cliente) {
-        clienteRepository.save(cliente);
-    }
-
+	@Override
+	public void guardar(Cliente cliente) {
+		clienteRepository.save(cliente);
+	}
 
 }

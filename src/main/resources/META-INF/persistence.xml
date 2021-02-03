@@ -4,6 +4,10 @@
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <class>com.abaco.entity.Cuenta</class>
     <class>com.abaco.entity.Cliente</class>
+    <class>com.abaco.model.Cuentas</class>
+    <class>com.abaco.model.Clientes</class>
+    <class>com.abaco.model.Cuenta</class>
+    <class>com.abaco.model.Cliente</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/abaco?zeroDateTimeBehavior=CONVERT_TO_NULL"/>
       <property name="javax.persistence.jdbc.user" value="root"/>
